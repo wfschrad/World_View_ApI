@@ -6,8 +6,8 @@ const { environment } = require('./config');
 
 //routers
 const indexRouter = require('./routes/index');
-const businessesRouter = require('./routes/businesses');
-const usersRouter = require('./routes/users');
+// const businessesRouter = require('./routes/businesses');
+// const usersRouter = require('./routes/users');
 
 const app = express();
 
@@ -18,8 +18,8 @@ app.use(cors({ origin: true }));//change path to host-address when acquired
 
 //mount routes
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/businesses', businessesRouter);
+// app.use('/users', userRouter);
+// app.use('/articles', articleRouter);
 
 
 
