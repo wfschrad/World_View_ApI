@@ -24,7 +24,6 @@ const validateEmailAndPassword = [
 router.post('/signup', validateEmailAndPassword, handleValidationErrors, asyncHandler(async (req, res) => {
     const { email, password } = req.body;
     const hashedPass = await bcrypt.hash(password, 10);
-    console.log("hashedPass", hashedPass)
     const user = await User.create({
         email,
         hashedPass
@@ -32,6 +31,7 @@ router.post('/signup', validateEmailAndPassword, handleValidationErrors, asyncHa
     console.log("after user creation!!!!!!")
 
     const token = getUserToken(user);
+    console.log('after get token')
     res.status(201).json({
         user: { id: user.id },
         token,
