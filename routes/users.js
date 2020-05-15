@@ -21,7 +21,10 @@ const validateEmailAndPassword = [
 //routes
 
 //create user
-router.post('/signup', validateEmailAndPassword, handleValidationErrors, asyncHandler(async (req, res) => {
+router.post('/signup',
+validateEmailAndPassword,
+handleValidationErrors,
+asyncHandler(async (req, res) => {
     const { email, password } = req.body;
     const hashedPass = await bcrypt.hash(password, 10);
     const user = await User.create({
