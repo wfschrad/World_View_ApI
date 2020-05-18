@@ -64,7 +64,13 @@ router.get('/savedStories/:userId(\\d+)', asyncHandler(async (req, res) => {
         const stories = await SavedStory.findAll({
             where: {
                 userId: req.params.userId
-            }
+            },
+            include: [
+                {
+                    model: NewsStory,
+                    attributes: ["url", "urlImg", "title", "description", "content"]
+                }
+            ]
         });
         res.json({ stories });
     } catch (e) { console.log(e); }
