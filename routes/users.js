@@ -22,24 +22,25 @@ const validateEmailAndPassword = [
 
 //create user
 router.post('/signup',
-validateEmailAndPassword,
-handleValidationErrors,
-asyncHandler(async (req, res) => {
-    const { email, password } = req.body;
-    const hashedPass = await bcrypt.hash(password, 10);
-    const user = await User.create({
-        email,
-        hashedPass
-    });
-    console.log("after user creation!!!!!!")
+    validateEmailAndPassword,
+    handleValidationErrors,
+    asyncHandler(async (req, res) => {
+        const { firstName, email, password } = req.body;
+        const hashedPass = await bcrypt.hash(password, 10);
+        const user = await User.create({
+            firstName,
+            email,
+            hashedPass
+        });
+        console.log("after user creation!!!!!!")
 
-    const token = getUserToken(user);
-    console.log('after get token')
-    res.status(201).json({
-        user: { id: user.id },
-        token,
-    });
-})
+        const token = getUserToken(user);
+        console.log('after get token')
+        res.status(201).json({
+            user: { id: user.id },
+            token,
+        });
+    })
 );
 
 //get specific user
