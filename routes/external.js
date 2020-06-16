@@ -1,5 +1,5 @@
 //hide in .env for production
-const newsToken = `78bf6a2d1a574d3995099f73fb8f6cd3`;
+const newsToken = process.env.apiKEY;
 const baseURL = `https://newsapi.org/v2/top-headlines?country=`;
 const Axios = require('axios');
 
@@ -12,10 +12,18 @@ const router = express.Router();
 router.post('/', asyncHandler(async (req, res) => {
     // parse request params
     //?state variables for query (more comments below route)
+    console.log('req body:', req.body)
     const {
-        currCountry
+        currCountry,
+        currCategory,
+        currKeyword
     } = req.body;
-    console.log('currCountry', currCountry);
+
+    const stateKeys = Object.keys(req.body);
+    console.log('stateKeys', stateKeys);
+
+    let queryString = baseURL;
+
     const newsRes = await Axios({
         url: `${baseURL}${currCountry}&apiKey=${newsToken}`,
     });
