@@ -8,6 +8,7 @@ const { environment } = require('./config');
 const indexRouter = require('./routes/index');
 const userRouter = require('./routes/users');
 const storyRouter = require('./routes/stories');
+const externalRouter = require('./routes/external')
 // const businessesRouter = require('./routes/businesses');
 
 
@@ -22,6 +23,7 @@ app.use(cors({ origin: true }));//change path to host-address when acquired
 app.use('/', indexRouter);
 app.use('/users', userRouter);
 app.use('/stories', storyRouter);
+app.use('/external', externalRouter);
 // app.use('/articles', articleRouter);
 
 
