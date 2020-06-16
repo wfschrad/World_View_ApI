@@ -19,13 +19,29 @@ router.post('/', asyncHandler(async (req, res) => {
         currKeyword
     } = req.body;
 
-    const stateKeys = Object.keys(req.body);
-    console.log('stateKeys', stateKeys);
-
     let queryString = baseURL;
 
+    const stateKeys = Object.keys(req.body);
+    for (let i = 0; i < stateKeys.length; i++) {
+        const param = stateKeys[i];
+        if (req.body[param] === 'none') continue;
+        switch (param) {
+            case 'currCountry':
+                queryString += `${currCountry}&`
+                break;
+            case 'currCategory':
+                queryString += `category=${currCategory}&`
+                break;
+            case 'currKeyword':
+                queryString += `topic=${currKeyword}&`
+        }
+    }
+    queryString += `apiKey=${newsToken}`;
+
+    console.log('queryString:', queryString);
+
     const newsRes = await Axios({
-        url: `${baseURL}${currCountry}&apiKey=${newsToken}`,
+        url: queryString,
     });
 
     const { articles } = newsRes.data;
